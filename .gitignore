@@ -1,0 +1,28 @@
+# Python virtual environments
+venv/
+.venv/
+env/
+attention_env/
+attention_venv/
+
+# Chroma vector database
+chroma_db/
+**/chroma_db/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# IDE files
+.vscode/
+
+# Logs
+*.log
