@@ -3,7 +3,9 @@ from langchain_ollama import OllamaEmbeddings
 
 # Initialize the same embedding model used during indexing
 embeddings = OllamaEmbeddings(
-    model="qwen3-embedding:8b"
+    model="qwen3-embedding:8b",
+    num_ctx=8192,
+    dimensions=1024
 )
 
 # Load the existing Chroma database
@@ -14,17 +16,13 @@ vectorstore = Chroma(
 )
 
 # Create a retriever
-retriever = vectorstore.as_retriever(
-    search_type="similarity",
-    search_kwargs={"k": 10}
-)
+def retrieve_posts(query: str, k: int = 10):
 
-# Search for relevant posts
-query = "What is happening in the india?"
+    retriever = vectorstore.as_retriever(
+        search_type="similarity",
+        search_kwargs={"k": k}
+    )
 
-documents = retriever.invoke(query)
+    documents = retriever.invoke(query)
 
-for i, doc in enumerate(documents, start=1):
-    print(f"\n--- Post {i} ---")
-    print(doc.page_content)
-    print(doc.metadata)
+    return documents
